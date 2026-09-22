@@ -1,17 +1,32 @@
 ---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 
+const projects = await getCollection('projects');
+const sorted = projects.sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Joblo Projects 🚀">
+  <header style="text-align: center; margin-bottom: 3rem;">
+    <h1 style="font-size: 3rem; margin: 0;">Joblo Projects 🚀</h1>
+    <p style="opacity: 0.8;">A hub for the things I build.</p>
+  </header>
+
+  <section class="grid">
+    {sorted.map((project) => (
+      <ProjectCard
+        slug={project.id}
+        title={project.data.title}
+        description={project.data.description}
+        tags={project.data.tags}
+        githubUrl={project.data.githubUrl}
+        liveUrl={project.data.liveUrl}
+      />
+    ))}
+  </section>
+</BaseLayout>
+
+

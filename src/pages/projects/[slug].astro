@@ -1,0 +1,82 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props; 
+const { Content } = await render(project);
+---
+
+<BaseLayout title={`${project.data.title} · Joblo Projects`}>
+  <article>
+    <header style="margin-bottom: 2rem;">
+      <a href="/" style="color: #ffd93d; text-decoration: none; font-size: 0.9rem;">← Back to all projects</a>
+      <h1 style="font-size: 2.5rem; margin: 1rem 0 0.5rem 0;">{project.data.title}</h1>
+      <p style="opacity: 0.8; font-size: 1.1rem;">{project.data.description}</p>
+
+      <div style="margin-top: 1rem;">
+        {project.data.tags.map((tag) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+
+      <p style="opacity: 0.6; font-size: 0.9rem; margin-top: 1rem;">
+        Published {project.data.publishDate.toDateString()}
+      </p>
+
+      {(project.data.githubUrl || project.data.liveUrl) && (
+        <div style="margin-top: 1rem;">
+          {project.data.githubUrl && (
+            <a href={project.data.githubUrl} target="_blank" class="btn">GitHub →</a>
+          )}
+          {project.data.liveUrl && (
+            <a href={project.data.liveUrl} target="_blank" class="btn">Live →</a>
+          )}
+        </div>
+      )}
+    </header>
+
+    <div class="card prose">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .tag {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    margin-right: 0.4rem;
+    display: inline-block;
+    margin-bottom: 0.4rem;
+  }
+  .btn {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-right: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  .btn:hover { background: rgba(255, 255, 255, 0.25); }
+  .prose { line-height: 1.7; }
+  .prose h2 { margin-top: 2rem; }
+  .prose code {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+  .prose a { color: #ffd93d; }
+</style>

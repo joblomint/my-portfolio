@@ -1,0 +1,60 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  description: string;
+  tags: string[];
+  githubUrl?: string;
+  liveUrl?: string;
+}
+
+const { slug, title, description, tags, githubUrl, liveUrl } = Astro.props;
+---
+
+<a href={`/projects/${slug}`} class="card-link">
+  <article class="card">
+    <h2>{title}</h2>
+    <p>{description}</p>
+    <div>
+      {tags.map((tag) => (
+        <span class="tag">{tag}</span>
+      ))}
+    </div>
+    {(githubUrl || liveUrl) && (
+      <div class="links">
+        {githubUrl && <a href={githubUrl} target="_blank" onclick="event.stopPropagation()">GitHub →</a>}
+        {liveUrl && <a href={liveUrl} target="_blank" onclick="event.stopPropagation()">Live →</a>}
+      </div>
+    )}
+  </article>
+</a>
+
+<style>
+  .card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.2s ease;
+  }
+  .card-link:hover {
+    transform: translateY(-4px);
+  }
+  .tag {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    margin-right: 0.4rem;
+    display: inline-block;
+    margin-bottom: 0.4rem;
+  }
+  .links {
+    margin-top: 0.8rem;
+  }
+  .links a {
+    color: #ffd93d;
+    margin-right: 1rem;
+    text-decoration: none;
+  }
+  .links a:hover { text-decoration: underline; }
+</style>

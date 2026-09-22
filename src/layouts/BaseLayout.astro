@@ -1,0 +1,109 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="nav-inner">
+        <a href="/" class="brand">Joblo Projects 🚀</a>
+        <nav>
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <p>© {new Date().getFullYear()} Joblo Projects · Built with Astro 🚀</p>
+    </footer>
+
+    <style is:global>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, sans-serif;
+        background: linear-gradient(135deg, #5b4bce, #7b5bd6);
+        color: white;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      main {
+        flex: 1;
+        max-width: 900px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 3rem 1.5rem;
+      }
+
+      /* Nav bar */
+      .nav {
+        background: rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .nav-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .brand {
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: white;
+        text-decoration: none;
+      }
+      .nav nav a {
+        color: white;
+        text-decoration: none;
+        margin-left: 1.5rem;
+        opacity: 0.85;
+        transition: opacity 0.2s;
+      }
+      .nav nav a:hover { opacity: 1; }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 1.5rem;
+        font-size: 0.85rem;
+        opacity: 0.7;
+      }
+
+      /* Shared card styles */
+      .card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 1.5rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .grid {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+    </style>
+  </body>
+</html>
