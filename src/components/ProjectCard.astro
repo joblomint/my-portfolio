@@ -26,19 +26,37 @@ const { slug, title, description, tags, githubUrl, liveUrl } = Astro.props;
         {liveUrl && <a href={liveUrl} target="_blank" onclick="event.stopPropagation()">Live →</a>}
       </div>
     )}
+    <span class="arrow" aria-hidden="true">→</span>
   </article>
 </a>
 
 <style>
   .card-link {
+    display: block;
     text-decoration: none;
     color: inherit;
-    display: block;
-    transition: transform 0.2s ease;
+    border-radius: 16px;
+    transition: transform 0.3s ease, filter 0.3s ease;
   }
+
   .card-link:hover {
-    transform: translateY(-4px);
+    transform: translateY(-6px);
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.25));
   }
+
+  .card-link:hover .card {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .card h2 {
+    transition: color 0.3s ease;
+  }
+
+  .card-link:hover h2 {
+    color: #ffd93d;
+  }
+
   .tag {
     background: rgba(255, 255, 255, 0.2);
     padding: 0.2rem 0.6rem;
@@ -48,13 +66,32 @@ const { slug, title, description, tags, githubUrl, liveUrl } = Astro.props;
     display: inline-block;
     margin-bottom: 0.4rem;
   }
+
   .links {
     margin-top: 0.8rem;
   }
+
   .links a {
     color: #ffd93d;
     margin-right: 1rem;
     text-decoration: none;
   }
-  .links a:hover { text-decoration: underline; }
+
+  .links a:hover {
+    color: #fff;
+  }
+
+  .arrow {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .card-link:hover .arrow {
+    color: #ffd93d;
+    transform: translateX(6px);
+  }
 </style>
