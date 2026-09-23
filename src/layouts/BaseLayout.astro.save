@@ -15,7 +15,7 @@ const { title } = Astro.props;
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-</head><link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
   <body>
     <header class="nav">
       <div class="nav-inner">
@@ -41,9 +41,7 @@ const { title } = Astro.props;
       body {
         margin: 0;
        font-family: 'Inter', system-ui, -apple-system, sans-serif;
-          background: linear-gradient(-45deg, #4a3ab8, #5b4bce, #7b5bd6, #8b6be6);
-  background-size: 400% 400%;
-  animation: gradientShift 20s ease infinite;
+        backgro
         color: white;
         min-height: 100vh;
         display: flex;
@@ -53,10 +51,6 @@ const { title } = Astro.props;
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.2;
-}@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
 }
 
 h1 { font-size: 3rem; }
